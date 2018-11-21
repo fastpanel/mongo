@@ -48,7 +48,7 @@ class Extension extends fastpanel_core_1.Extensions.ExtensionDefines {
         /* Register connection object. */
         this.di.set('db', (container) => {
             return mongoose_1.default.connection;
-        }, false);
+        }, true);
     }
     /**
      * Startup a service provider.

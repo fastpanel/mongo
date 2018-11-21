@@ -49,7 +49,7 @@ export class Extension extends Extensions.ExtensionDefines {
     /* Register connection object. */
     this.di.set('db', (container: Di.Container) => {
       return MongoSE.connection;
-    }, false);
+    }, true);
   }
   
   /**
