@@ -46,7 +46,7 @@ class Extension extends fastpanel_core_1.Extensions.ExtensionDefines {
             useNewUrlParser: true
         });
         /* Register connection object. */
-        this.di.set('db', (container) => {
+        this.di.set('db', (di) => {
             return mongoose_1.default.connection;
         }, true);
     }
@@ -54,8 +54,9 @@ class Extension extends fastpanel_core_1.Extensions.ExtensionDefines {
      * Startup a service provider.
      */
     async startup() {
-        /* Fire db startup event. */
-        this.events.emit('db:startup');
+        /* Fire event. */
+        this.events.emit('db:getModels', this.db);
+        this.events.emit('db:startup', this.db);
     }
 }
 exports.Extension = Extension;

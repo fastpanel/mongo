@@ -47,7 +47,7 @@ export class Extension extends Extensions.ExtensionDefines {
     });
 
     /* Register connection object. */
-    this.di.set('db', (container: Di.Container) => {
+    this.di.set('db', (di: Di.Container) => {
       return MongoSE.connection;
     }, true);
   }
@@ -56,8 +56,9 @@ export class Extension extends Extensions.ExtensionDefines {
    * Startup a service provider.
    */
   async startup () : Promise<any> {
-    /* Fire db startup event. */
-    this.events.emit('db:startup');
+    /* Fire event. */
+    this.events.emit('db:getModels', this.db);
+    this.events.emit('db:startup', this.db);
   }
 
 }
