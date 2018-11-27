@@ -49,6 +49,10 @@ class Extension extends fastpanel_core_1.Extensions.ExtensionDefines {
         this.di.set('db', (di) => {
             return mongoose_1.default.connection;
         }, true);
+        /* Registered cli commands. */
+        this.events.once('cli:getCommands', (cli) => {
+            console.log('cli:getCommands');
+        });
     }
     /**
      * Startup a service provider.

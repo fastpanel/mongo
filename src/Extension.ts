@@ -6,6 +6,7 @@
  * @license   MIT
  */
 
+import Vorpal from 'vorpal';
 import MongoSE from 'mongoose';
 import { Di, Extensions } from 'fastpanel-core';
 
@@ -50,6 +51,11 @@ export class Extension extends Extensions.ExtensionDefines {
     this.di.set('db', (di: Di.Container) => {
       return MongoSE.connection;
     }, true);
+
+    /* Registered cli commands. */
+    this.events.once('cli:getCommands', (cli: Vorpal) => {
+      console.log('cli:getCommands');
+    });
   }
   
   /**
