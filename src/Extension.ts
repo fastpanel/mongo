@@ -54,7 +54,9 @@ export class Extension extends Extensions.ExtensionDefines {
 
     /* Registered cli commands. */
     this.events.once('cli:getCommands', (cli: Vorpal) => {
-      console.log('cli:getCommands');
+      /* Registered seeding database test data command. */
+      const { Seeds } = require('./Commands/Seeds');
+      (new Seeds()).initialize();
     });
   }
   

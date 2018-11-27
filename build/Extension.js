@@ -51,7 +51,9 @@ class Extension extends fastpanel_core_1.Extensions.ExtensionDefines {
         }, true);
         /* Registered cli commands. */
         this.events.once('cli:getCommands', (cli) => {
-            console.log('cli:getCommands');
+            /* Registered seeding database test data command. */
+            const { Seeds } = require('./Commands/Seeds');
+            (new Seeds()).initialize();
         });
     }
     /**
