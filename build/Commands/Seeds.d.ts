@@ -5,11 +5,11 @@
  * @copyright 2014 - 2018 Desionlab
  * @license   MIT
  */
-import { CommandDefines } from "fastpanel-core/build/Cli";
+import { Cli } from "fastpanel-core";
 /**
  *
  */
-export declare class Seeds extends CommandDefines {
+export declare class Seeds extends Cli.CommandDefines {
     /**
      * Initialize a commands provider.
      */

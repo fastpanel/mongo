@@ -6,12 +6,12 @@
  * @license   MIT
  */
 
-import { CommandDefines } from "fastpanel-core/build/Cli";
+import { Cli } from "fastpanel-core";
 
 /**
  * 
  */
-export class Seeds extends CommandDefines {
+export class Seeds extends Cli.CommandDefines {
   
   /**
    * Initialize a commands provider.
@@ -20,7 +20,10 @@ export class Seeds extends CommandDefines {
     this.cli
     .command('seeds', 'Seeding database test data.')
     .action((args: any) => {
-      this.events.emit('db:seeds', this.db);
+      return new Promise((resolve, reject) => {
+        this.events.emit('db:seeds', this.db);
+        resolve();
+      });
     });
   }
 

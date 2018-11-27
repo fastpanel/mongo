@@ -7,11 +7,11 @@
  * @license   MIT
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const Cli_1 = require("fastpanel-core/build/Cli");
+const fastpanel_core_1 = require("fastpanel-core");
 /**
  *
  */
-class Seeds extends Cli_1.CommandDefines {
+class Seeds extends fastpanel_core_1.Cli.CommandDefines {
     /**
      * Initialize a commands provider.
      */
@@ -19,7 +19,10 @@ class Seeds extends Cli_1.CommandDefines {
         this.cli
             .command('seeds', 'Seeding database test data.')
             .action((args) => {
-            this.events.emit('db:seeds', this.db);
+            return new Promise((resolve, reject) => {
+                this.events.emit('db:seeds', this.db);
+                resolve();
+            });
         });
     }
 }
