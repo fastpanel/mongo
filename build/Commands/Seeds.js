@@ -18,7 +18,7 @@ class Seeds extends Cli_1.CommandDefines {
     initialize() {
         this.cli
             .command('seeds', 'Seeding database test data.')
-            .action((args, callback) => {
+            .action((args) => {
             this.events.emit('db:seeds', this.db);
         });
     }

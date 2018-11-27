@@ -19,7 +19,7 @@ export class Seeds extends CommandDefines {
   initialize () : void  {
     this.cli
     .command('seeds', 'Seeding database test data.')
-    .action((args: any, callback: any) => {
+    .action((args: any) => {
       this.events.emit('db:seeds', this.db);
     });
   }
