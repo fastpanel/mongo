@@ -56,7 +56,7 @@ export class Extension extends Extensions.ExtensionDefines {
     this.events.once('cli:getCommands', async (cli: Vorpal) => {
       /* Registered seeding database test data command. */
       const { Seeds } = require('./Commands/Seeds');
-      await (new Seeds()).initialize();
+      await (new Seeds(this.di)).initialize();
     });
   }
   
