@@ -16,7 +16,7 @@ export class Seeds extends Cli.CommandDefines {
   /**
    * Initialize a commands provider.
    */
-  initialize () : void  {
+  async initialize () : Promise<any> {
     this.cli
     .command('seeds', 'Seeding database test data.')
     .action((args: any) => {

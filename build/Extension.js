@@ -50,10 +50,10 @@ class Extension extends fastpanel_core_1.Extensions.ExtensionDefines {
             return mongoose_1.default.connection;
         }, true);
         /* Registered cli commands. */
-        this.events.once('cli:getCommands', (cli) => {
+        this.events.once('cli:getCommands', async (cli) => {
             /* Registered seeding database test data command. */
             const { Seeds } = require('./Commands/Seeds');
-            (new Seeds()).initialize();
+            await (new Seeds()).initialize();
         });
     }
     /**

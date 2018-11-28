@@ -53,10 +53,10 @@ export class Extension extends Extensions.ExtensionDefines {
     }, true);
 
     /* Registered cli commands. */
-    this.events.once('cli:getCommands', (cli: Vorpal) => {
+    this.events.once('cli:getCommands', async (cli: Vorpal) => {
       /* Registered seeding database test data command. */
       const { Seeds } = require('./Commands/Seeds');
-      (new Seeds()).initialize();
+      await (new Seeds()).initialize();
     });
   }
   

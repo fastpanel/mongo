@@ -13,5 +13,5 @@ export declare class Seeds extends Cli.CommandDefines {
     /**
      * Initialize a commands provider.
      */
-    initialize(): void;
+    initialize(): Promise<any>;
 }

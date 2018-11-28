@@ -15,7 +15,7 @@ class Seeds extends fastpanel_core_1.Cli.CommandDefines {
     /**
      * Initialize a commands provider.
      */
-    initialize() {
+    async initialize() {
         this.cli
             .command('seeds', 'Seeding database test data.')
             .action((args) => {
