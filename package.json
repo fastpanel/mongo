@@ -31,7 +31,10 @@
     "mongoose"
   ],
   "dependencies": {
-    "mongoose": "^5.3.14"
+    "mongoose": "^5.3.14",
+    "mongoose-bcrypt": "^1.6.0",
+    "mongoose-hidden": "^1.6.0",
+    "mongoose-mpath": "^2.0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",
