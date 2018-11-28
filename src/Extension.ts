@@ -44,6 +44,7 @@ export class Extension extends Extensions.ExtensionDefines {
       poolSize          : this.config.get('Extensions/MongoDB.poolSize', 10),
       /*  */
       promiseLibrary    : global.Promise,
+      useCreateIndex    : true,
       useNewUrlParser   : true
     });
 
