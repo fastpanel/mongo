@@ -11,6 +11,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const Const_1 = require("./Const");
 const fastpanel_core_1 = require("fastpanel-core");
 /* Set mongoose options. */
 mongoose_1.default.Promise = global.Promise;
@@ -22,6 +23,19 @@ mongoose_1.default.Promise = global.Promise;
  * @version 1.0.0
  */
 class Extension extends fastpanel_core_1.Extensions.ExtensionDefines {
+    /**
+     * Extension constructor.
+     *
+     * @param di Di container instant.
+     */
+    constructor(di) {
+        super(di);
+        /* Check and create default config fail. */
+        if (!this.config.get('Extensions/MongoDB', false)) {
+            this.config.set('Extensions/MongoDB', Const_1.MONGODB_CONFIG);
+            this.config.save('Extensions/MongoDB', true);
+        }
+    }
     /**
      * Registers a service provider.
      */

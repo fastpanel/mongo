@@ -8,6 +8,7 @@
 
 import Vorpal from 'vorpal';
 import MongoSE from 'mongoose';
+import { MONGODB_CONFIG } from './Const';
 import { Di, Extensions } from 'fastpanel-core';
 
 /* Set mongoose options. */
@@ -21,6 +22,21 @@ MongoSE.Promise = global.Promise;
  * @version 1.0.0
  */
 export class Extension extends Extensions.ExtensionDefines {
+  
+  /**
+   * Extension constructor.
+   * 
+   * @param di Di container instant.
+   */
+  constructor(di?: Di.Container) {
+    super(di);
+
+    /* Check and create default config fail. */
+    if (!this.config.get('Extensions/MongoDB', false)) {
+      this.config.set('Extensions/MongoDB', MONGODB_CONFIG);
+      this.config.save('Extensions/MongoDB', true);
+    }
+  }
 
   /**
    * Registers a service provider.
