@@ -18,7 +18,7 @@ export class Seeds extends Cli.CommandDefines {
    */
   async initialize () : Promise<any> {
     this.cli
-    .command('seeds', 'Seeding database test data.')
+    .command('db seeds', 'Seeding database data.')
     .action((args: any) => {
       return new Promise((resolve, reject) => {
         this.events.emit('db:seeds', this.db);
