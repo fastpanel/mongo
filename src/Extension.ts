@@ -9,7 +9,7 @@
 import Vorpal from 'vorpal';
 import MongoSE from 'mongoose';
 import { MONGODB_CONFIG } from './Const';
-import { Di, Extensions } from 'fastpanel-core';
+import { Di, Extensions, Application } from 'fastpanel-core';
 
 /* Set mongoose options. */
 MongoSE.Promise = global.Promise;
@@ -30,12 +30,6 @@ export class Extension extends Extensions.ExtensionDefines {
    */
   constructor(di?: Di.Container) {
     super(di);
-
-    /* Check and create default config fail. */
-    if (!this.config.get('Extensions/MongoDB', false)) {
-      this.config.set('Extensions/MongoDB', MONGODB_CONFIG);
-      this.config.save('Extensions/MongoDB', true);
-    }
   }
 
   /**
@@ -44,20 +38,20 @@ export class Extension extends Extensions.ExtensionDefines {
   async register () : Promise<any> {
     /* Forming the connection address. */
     let url = "mongodb://"
-    + this.config.get('Extensions/MongoDB.host', '127.0.0.1')
-    + ":" + this.config.get('Extensions/MongoDB.port', 27017);
+    + this.config.get('Extensions/MongoDB.host', MONGODB_CONFIG.host)
+    + ":" + this.config.get('Extensions/MongoDB.port', MONGODB_CONFIG.port);
 
     /* Connect to database. */
     await MongoSE.connect(url, {
       /*  */
-      user              : this.config.get('Extensions/MongoDB.user', null),
-      pass              : this.config.get('Extensions/MongoDB.pass', null),
-      dbName            : this.config.get('Extensions/MongoDB.dbName', 'fastPanel'),
+      user              : this.config.get('Extensions/MongoDB.user', MONGODB_CONFIG.user),
+      pass              : this.config.get('Extensions/MongoDB.pass', MONGODB_CONFIG.pass),
+      dbName            : this.config.get('Extensions/MongoDB.dbName', MONGODB_CONFIG.dbName),
       /*  */
-      autoReconnect     : this.config.get('Extensions/MongoDB.autoReconnect', true),
-      reconnectTries    : this.config.get('Extensions/MongoDB.reconnectTries', Number.MAX_VALUE),
-      reconnectInterval : this.config.get('Extensions/MongoDB.reconnectInterval', 500),
-      poolSize          : this.config.get('Extensions/MongoDB.poolSize', 10),
+      autoReconnect     : this.config.get('Extensions/MongoDB.autoReconnect', MONGODB_CONFIG.autoReconnect),
+      reconnectTries    : this.config.get('Extensions/MongoDB.reconnectTries', MONGODB_CONFIG.reconnectTries),
+      reconnectInterval : this.config.get('Extensions/MongoDB.reconnectInterval', MONGODB_CONFIG.reconnectInterval),
+      poolSize          : this.config.get('Extensions/MongoDB.poolSize', MONGODB_CONFIG.poolSize),
       /*  */
       promiseLibrary    : global.Promise,
       useCreateIndex    : true,
@@ -69,6 +63,17 @@ export class Extension extends Extensions.ExtensionDefines {
       return MongoSE.connection;
     }, true);
 
+    /* --------------------------------------------------------------------- */
+
+    /* Install and configure the basic components of the system. */
+    this.events.once('app:setup', async (app: Application) => {
+      /* Check and create default config file. */
+      if (!this.config.get('Extensions/MongoDB', false)) {
+        this.config.set('Extensions/MongoDB', MONGODB_CONFIG);
+        this.config.save('Extensions/MongoDB', true);
+      }
+    });
+    
     /* Registered cli commands. */
     this.events.once('cli:getCommands', async (cli: Vorpal) => {
       /* Registered seeding database test data command. */
