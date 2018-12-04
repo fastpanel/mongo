@@ -29,7 +29,7 @@ export class Seeds extends Cli.CommandDefines {
         this.events.emit('db:getSeedsTasks', this.db, list);
         
         /*  */
-        let bar = new ProgressBar(':bar :percent :etas', { 
+        let bar = new ProgressBar(' :bar :percent :etas ', {
           complete: '\u25A0',
           incomplete: ' ',
           width: 60,

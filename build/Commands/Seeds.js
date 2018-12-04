@@ -29,7 +29,7 @@ class Seeds extends fastpanel_core_1.Cli.CommandDefines {
                 /*  */
                 this.events.emit('db:getSeedsTasks', this.db, list);
                 /*  */
-                let bar = new progress_1.default(':bar :percent :etas', {
+                let bar = new progress_1.default(' :bar :percent :etas ', {
                     complete: '\u25A0',
                     incomplete: ' ',
                     width: 60,
