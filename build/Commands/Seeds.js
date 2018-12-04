@@ -6,7 +6,11 @@
  * @copyright 2014 - 2018 Desionlab
  * @license   MIT
  */
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const progress_1 = __importDefault(require("progress"));
 const fastpanel_core_1 = require("fastpanel-core");
 /**
  *
@@ -25,6 +29,12 @@ class Seeds extends fastpanel_core_1.Cli.CommandDefines {
                 /*  */
                 this.events.emit('db:getSeedsTasks', this.db, list);
                 /*  */
+                let bar = new progress_1.default(':bar :percent :etas', {
+                    complete: '\u25A0',
+                    incomplete: ' ',
+                    total: list.length
+                });
+                /*  */
                 for (const task of list) {
                     if (task instanceof Promise) {
                         try {
@@ -34,6 +44,7 @@ class Seeds extends fastpanel_core_1.Cli.CommandDefines {
                             this.cli.log(error);
                         }
                     }
+                    bar.tick();
                 }
                 resolve();
             });

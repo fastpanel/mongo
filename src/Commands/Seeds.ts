@@ -6,6 +6,7 @@
  * @license   MIT
  */
 
+import ProgressBar from "progress";
 import { Cli } from "fastpanel-core";
 
 /**
@@ -28,6 +29,13 @@ export class Seeds extends Cli.CommandDefines {
         this.events.emit('db:getSeedsTasks', this.db, list);
         
         /*  */
+        let bar = new ProgressBar(':bar :percent :etas', { 
+          complete: '\u25A0',
+          incomplete: ' ',
+          total: list.length
+        });
+
+        /*  */
         for (const task of list) {
           if (task instanceof Promise) {
             try {
@@ -36,6 +44,8 @@ export class Seeds extends Cli.CommandDefines {
               this.cli.log(error);
             }
           }
+
+          bar.tick();
         }
 
         resolve();
