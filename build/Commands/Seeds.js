@@ -19,8 +19,22 @@ class Seeds extends fastpanel_core_1.Cli.CommandDefines {
         this.cli
             .command('db seeds', 'Seeding database data.')
             .action((args) => {
-            return new Promise((resolve, reject) => {
-                this.events.emit('db:seeds', this.db);
+            return new Promise(async (resolve, reject) => {
+                /*  */
+                let list = [];
+                /*  */
+                this.events.emit('db:getSeedsTasks', this.db, list);
+                /*  */
+                for (const task of list) {
+                    if (task instanceof Promise) {
+                        try {
+                            await task;
+                        }
+                        catch (error) {
+                            this.cli.log(error);
+                        }
+                    }
+                }
                 resolve();
             });
         });
