@@ -32,6 +32,7 @@ export class Seeds extends Cli.CommandDefines {
         let bar = new ProgressBar(':bar :percent :etas', { 
           complete: '\u25A0',
           incomplete: ' ',
+          width: 60,
           total: list.length
         });
 

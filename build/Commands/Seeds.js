@@ -32,6 +32,7 @@ class Seeds extends fastpanel_core_1.Cli.CommandDefines {
                 let bar = new progress_1.default(':bar :percent :etas', {
                     complete: '\u25A0',
                     incomplete: ' ',
+                    width: 60,
                     total: list.length
                 });
                 /*  */
