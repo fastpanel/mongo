@@ -24,18 +24,14 @@ class Seeds extends core_1.Cli.CommandDefines {
             .command('db seeds', 'Seeding database data.')
             .action((args) => {
             return new Promise(async (resolve, reject) => {
-                /*  */
                 let list = [];
-                /*  */
                 this.events.emit('db:getSeedsTasks', list);
-                /*  */
                 let bar = new progress_1.default(' :bar :percent :etas ', {
                     complete: '\u25A0',
                     incomplete: ' ',
                     width: 60,
                     total: list.length
                 });
-                /*  */
                 for (const task of list) {
                     if (task instanceof Promise) {
                         try {

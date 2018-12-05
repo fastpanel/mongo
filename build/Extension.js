@@ -53,12 +53,14 @@ class Extension extends core_1.Extensions.ExtensionDefines {
         }, true);
         /* --------------------------------------------------------------------- */
         /* Install and configure the basic components of the system. */
-        this.events.on('app:getSetupTasks', async () => {
-            /* Check and create default config file. */
-            if (!this.config.get('Extensions/MongoDB', false)) {
-                this.config.set('Extensions/MongoDB', Const_1.MONGODB_CONFIG);
-                this.config.save('Extensions/MongoDB', true);
-            }
+        this.events.on('app:getSetupTasks', async (list) => {
+            list.push(async (command) => {
+                /* Check and create default config file. */
+                if (!this.config.get('Extensions/MongoDB', false)) {
+                    this.config.set('Extensions/MongoDB', Const_1.MONGODB_CONFIG);
+                    this.config.save('Extensions/MongoDB', true);
+                }
+            });
         });
         /* Registered cli commands. */
         this.events.once('cli:getCommands', async (cli) => {
