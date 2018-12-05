@@ -38,14 +38,14 @@
     "mongoose-mpath": "^2.0.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.6",
+    "@fastpanel/core": "github:desionlab/fastpanel-core#develop",
+    "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
-    "@types/mongoose": "^5.3.2",
+    "@types/mongoose": "^5.3.3",
     "@types/node": "^10.12.12",
     "@types/progress": "^2.0.1",
     "@types/vorpal": "^1.11.0",
     "chai": "^4.2.0",
-    "fastpanel-core": "github:desionlab/fastpanel-core#develop",
     "mocha": "^5.2.0",
     "ts-node": "^7.0.1",
     "typedoc": "^0.13.0",

@@ -11,11 +11,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const progress_1 = __importDefault(require("progress"));
-const fastpanel_core_1 = require("fastpanel-core");
+const core_1 = require("@fastpanel/core");
 /**
  *
  */
-class Seeds extends fastpanel_core_1.Cli.CommandDefines {
+class Seeds extends core_1.Cli.CommandDefines {
     /**
      * Initialize a commands provider.
      */
@@ -27,7 +27,7 @@ class Seeds extends fastpanel_core_1.Cli.CommandDefines {
                 /*  */
                 let list = [];
                 /*  */
-                this.events.emit('db:getSeedsTasks', this.db, list);
+                this.events.emit('db:getSeedsTasks', list);
                 /*  */
                 let bar = new progress_1.default(' :bar :percent :etas ', {
                     complete: '\u25A0',

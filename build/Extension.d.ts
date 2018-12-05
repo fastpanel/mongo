@@ -5,7 +5,7 @@
  * @copyright 2014 - 2018 Desionlab
  * @license   MIT
  */
-import { Di, Extensions } from 'fastpanel-core';
+import { Extensions } from '@fastpanel/core';
 /**
  * Class Extension
  *
@@ -14,12 +14,6 @@ import { Di, Extensions } from 'fastpanel-core';
  * @version 1.0.0
  */
 export declare class Extension extends Extensions.ExtensionDefines {
-    /**
-     * Extension constructor.
-     *
-     * @param di Di container instant.
-     */
-    constructor(di?: Di.Container);
     /**
      * Registers a service provider.
      */

@@ -7,7 +7,7 @@
  */
 
 import ProgressBar from "progress";
-import { Cli } from "fastpanel-core";
+import { Cli } from "@fastpanel/core";
 
 /**
  * 
@@ -22,13 +22,10 @@ export class Seeds extends Cli.CommandDefines {
     .command('db seeds', 'Seeding database data.')
     .action((args: any) => {
       return new Promise(async (resolve, reject) => {
-        /*  */
         let list: Array<Promise<any>> = [];
 
-        /*  */
-        this.events.emit('db:getSeedsTasks', this.db, list);
+        this.events.emit('db:getSeedsTasks', list);
         
-        /*  */
         let bar = new ProgressBar(' :bar :percent :etas ', {
           complete: '\u25A0',
           incomplete: ' ',
@@ -36,7 +33,6 @@ export class Seeds extends Cli.CommandDefines {
           total: list.length
         });
 
-        /*  */
         for (const task of list) {
           if (task instanceof Promise) {
             try {

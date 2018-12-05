@@ -9,7 +9,8 @@
 import Vorpal from 'vorpal';
 import MongoSE from 'mongoose';
 import { MONGODB_CONFIG } from './Const';
-import { Di, Extensions, Application } from 'fastpanel-core';
+import { Di, Extensions } from '@fastpanel/core';
+import { SetupTaskDefinesMethod } from '@fastpanel/core/build/Commands';
 
 /* Set mongoose options. */
 MongoSE.Promise = global.Promise;
@@ -23,15 +24,6 @@ MongoSE.Promise = global.Promise;
  */
 export class Extension extends Extensions.ExtensionDefines {
   
-  /**
-   * Extension constructor.
-   * 
-   * @param di Di container instant.
-   */
-  constructor(di?: Di.Container) {
-    super(di);
-  }
-
   /**
    * Registers a service provider.
    */
@@ -64,14 +56,16 @@ export class Extension extends Extensions.ExtensionDefines {
     }, true);
 
     /* --------------------------------------------------------------------- */
-
+    
     /* Install and configure the basic components of the system. */
-    this.events.once('app:setup', async (app: Application) => {
-      /* Check and create default config file. */
-      if (!this.config.get('Extensions/MongoDB', false)) {
-        this.config.set('Extensions/MongoDB', MONGODB_CONFIG);
-        this.config.save('Extensions/MongoDB', true);
-      }
+    this.events.on('app:getSetupTasks', async (list: Array<SetupTaskDefinesMethod>) => {
+      list.push(async (command: Vorpal.CommandInstance) => {
+        /* Check and create default config file. */
+        if (!this.config.get('Extensions/MongoDB', false)) {
+          this.config.set('Extensions/MongoDB', MONGODB_CONFIG);
+          this.config.save('Extensions/MongoDB', true);
+        }
+      });
     });
     
     /* Registered cli commands. */

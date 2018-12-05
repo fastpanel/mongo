@@ -5,7 +5,7 @@
  * @copyright 2014 - 2018 Desionlab
  * @license   MIT
  */
-import { Cli } from "fastpanel-core";
+import { Cli } from "@fastpanel/core";
 /**
  *
  */
