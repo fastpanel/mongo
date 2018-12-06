@@ -1,5 +1,5 @@
 {
-  "name": "fastpanel-extension-mongodb",
+  "name": "@fastpanel/mongodb",
   "version": "0.0.1",
   "description": "Extension to work with \"MongoDB\" base.",
   "author": "Desionlab <fenixphp@gmail.com>",
