@@ -31,7 +31,7 @@
     "mongoose"
   ],
   "dependencies": {
-    "mongoose": "^5.3.14",
+    "mongoose": "^5.3.16",
     "mongoose-autopopulate": "^0.9.0",
     "mongoose-bcrypt": "^1.6.0",
     "mongoose-hidden": "^1.6.0",
