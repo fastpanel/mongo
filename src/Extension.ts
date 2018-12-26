@@ -59,7 +59,7 @@ export class Extension extends Extensions.ExtensionDefines {
     
     /* Install and configure the basic components of the system. */
     this.events.on('app:getSetupTasks', async (list: Array<SetupTaskDefinesMethod>) => {
-      list.push(async (command: Vorpal.CommandInstance) => {
+      list.push(async (command: Vorpal.CommandInstance, argv?: any) => {
         /* Check and create default config file. */
         if (!this.config.get('Extensions/MongoDB', false)) {
           this.config.set('Extensions/MongoDB', MONGODB_CONFIG);

@@ -1,11 +1,12 @@
 /**
  * index.ts
- *
+ * 
  * @author    Desionlab <fenixphp@gmail.com>
  * @copyright 2014 - 2018 Desionlab
  * @license   MIT
  */
-import * as Commands from './Commands';
-export { Commands };
-export * from './Const';
-export * from './Extension';
+
+import { SeedsTaskDefinesMethod } from './Seeds';
+export { SeedsTaskDefinesMethod };
+
+/* End of file index.ts */

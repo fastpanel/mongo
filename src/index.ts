@@ -6,6 +6,9 @@
  * @license   MIT
  */
 
+import * as Commands from './Commands';
+
+export { Commands };
 export * from './Const';
 export * from './Extension';
 

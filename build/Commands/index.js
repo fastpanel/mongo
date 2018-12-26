@@ -1,3 +1,4 @@
+"use strict";
 /**
  * index.ts
  *
@@ -5,7 +6,5 @@
  * @copyright 2014 - 2018 Desionlab
  * @license   MIT
  */
-import * as Commands from './Commands';
-export { Commands };
-export * from './Const';
-export * from './Extension';
+Object.defineProperty(exports, "__esModule", { value: true });
+/* End of file index.ts */ 

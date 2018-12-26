@@ -33,9 +33,9 @@ class Seeds extends core_1.Cli.CommandDefines {
                     total: list.length
                 });
                 for (const task of list) {
-                    if (task instanceof Promise) {
+                    if (typeof task === 'function') {
                         try {
-                            await task;
+                            await task(this.cli.activeCommand, args);
                         }
                         catch (error) {
                             this.cli.log(error);

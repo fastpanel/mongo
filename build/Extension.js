@@ -54,7 +54,7 @@ class Extension extends core_1.Extensions.ExtensionDefines {
         /* --------------------------------------------------------------------- */
         /* Install and configure the basic components of the system. */
         this.events.on('app:getSetupTasks', async (list) => {
-            list.push(async (command) => {
+            list.push(async (command, argv) => {
                 /* Check and create default config file. */
                 if (!this.config.get('Extensions/MongoDB', false)) {
                     this.config.set('Extensions/MongoDB', Const_1.MONGODB_CONFIG);
