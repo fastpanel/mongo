@@ -25,7 +25,7 @@ class Seeds extends core_1.Cli.CommandDefines {
             .action((args) => {
             return new Promise(async (resolve, reject) => {
                 let list = [];
-                this.events.emit('db:getSeedsTasks', list);
+                this.events.emit('db:getSeedsSubscriptions', list);
                 let bar = new progress_1.default(' :bar :percent :etas ', {
                     complete: '\u25A0',
                     incomplete: ' ',

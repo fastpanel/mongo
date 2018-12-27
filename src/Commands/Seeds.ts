@@ -7,13 +7,7 @@
  */
 
 import ProgressBar from "progress";
-import { CommandInstance } from "vorpal";
 import { Cli } from "@fastpanel/core";
-
-/**
- * Definition method a resolve setup task.
- */
-export type SeedsTaskDefinesMethod = (command: CommandInstance, args?: any) => Promise<any>;
 
 /**
  * 
@@ -28,9 +22,9 @@ export class Seeds extends Cli.CommandDefines {
     .command('db seeds', 'Seeding database data.')
     .action((args: any) => {
       return new Promise(async (resolve, reject) => {
-        let list: Array<SeedsTaskDefinesMethod> = [];
+        let list: Array<Cli.CommandSubscriptionDefines> = [];
 
-        this.events.emit('db:getSeedsTasks', list);
+        this.events.emit('db:getSeedsSubscriptions', list);
         
         let bar = new ProgressBar(' :bar :percent :etas ', {
           complete: '\u25A0',

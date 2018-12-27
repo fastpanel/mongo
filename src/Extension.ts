@@ -7,13 +7,12 @@
  */
 
 import Vorpal from 'vorpal';
-import MongoSE from 'mongoose';
+import Mongoose from 'mongoose';
 import { MONGODB_CONFIG } from './Const';
-import { Di, Extensions } from '@fastpanel/core';
-import { SetupTaskDefinesMethod } from '@fastpanel/core/build/Commands';
+import { Cli, Di, Extensions } from '@fastpanel/core';
 
 /* Set mongoose options. */
-MongoSE.Promise = global.Promise;
+Mongoose.Promise = global.Promise;
 
 /**
  * Class Extension
@@ -34,7 +33,7 @@ export class Extension extends Extensions.ExtensionDefines {
     + ":" + this.config.get('Extensions/MongoDB.port', MONGODB_CONFIG.port);
 
     /* Connect to database. */
-    await MongoSE.connect(url, {
+    await Mongoose.connect(url, {
       /*  */
       user              : this.config.get('Extensions/MongoDB.user', MONGODB_CONFIG.user),
       pass              : this.config.get('Extensions/MongoDB.pass', MONGODB_CONFIG.pass),
@@ -52,13 +51,19 @@ export class Extension extends Extensions.ExtensionDefines {
 
     /* Register connection object. */
     this.di.set('db', (di: Di.Container) => {
-      return MongoSE.connection;
+      return Mongoose.connection;
     }, true);
 
     /* --------------------------------------------------------------------- */
     
+    /* Registered cli commands. */
+    this.events.once('cli:getCommands', async (cli: Vorpal) => {
+      const { Seeds } = require('./Commands/Seeds');
+      await (new Seeds(this.di)).initialize();
+    });
+
     /* Install and configure the basic components of the system. */
-    this.events.on('app:getSetupTasks', async (list: Array<SetupTaskDefinesMethod>) => {
+    this.events.on('app:getSetupSubscriptions', (list: Array<Cli.CommandSubscriptionDefines>) => {
       list.push(async (command: Vorpal.CommandInstance, args?: any) => {
         /* Check and create default config file. */
         if (!this.config.get('Extensions/MongoDB', false)) {
@@ -66,12 +71,6 @@ export class Extension extends Extensions.ExtensionDefines {
           this.config.save('Extensions/MongoDB', true);
         }
       });
-    });
-    
-    /* Registered cli commands. */
-    this.events.once('cli:getCommands', async (cli: Vorpal) => {
-      const { Seeds } = require('./Commands/Seeds');
-      await (new Seeds(this.di)).initialize();
     });
   }
   

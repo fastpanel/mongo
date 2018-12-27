@@ -52,8 +52,13 @@ class Extension extends core_1.Extensions.ExtensionDefines {
             return mongoose_1.default.connection;
         }, true);
         /* --------------------------------------------------------------------- */
+        /* Registered cli commands. */
+        this.events.once('cli:getCommands', async (cli) => {
+            const { Seeds } = require('./Commands/Seeds');
+            await (new Seeds(this.di)).initialize();
+        });
         /* Install and configure the basic components of the system. */
-        this.events.on('app:getSetupTasks', async (list) => {
+        this.events.on('app:getSetupSubscriptions', (list) => {
             list.push(async (command, args) => {
                 /* Check and create default config file. */
                 if (!this.config.get('Extensions/MongoDB', false)) {
@@ -61,11 +66,6 @@ class Extension extends core_1.Extensions.ExtensionDefines {
                     this.config.save('Extensions/MongoDB', true);
                 }
             });
-        });
-        /* Registered cli commands. */
-        this.events.once('cli:getCommands', async (cli) => {
-            const { Seeds } = require('./Commands/Seeds');
-            await (new Seeds(this.di)).initialize();
         });
     }
     /**

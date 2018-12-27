@@ -917,6 +917,17 @@ img { max-width: 100%; }
 			<h1 id="fastpanel-mongodb-extension-">fastPanel MongoDB Extension.</h1>
 			<p>Extension to work with &quot;MongoDB&quot; base.</p>
 			<hr>
+			<h2 id="events">Events</h2>
+			<h3 id="cli-getcommands">cli:getCommands</h3>
+			<p>The event is triggered when the application is ready to register mongoose models.</p>
+			<pre><code class="language-typescript">  <span class="hljs-keyword">this</span>.events.once(<span class="hljs-string">'db:getModels'</span>, <span class="hljs-keyword">async</span> (db: Mongoose.Connection) =&gt; {});</code></pre>
+			<h3 id="db-getseedssubscriptions">db:getSeedsSubscriptions</h3>
+			<p>The event allows you to register in the queue
+			for execution actions to seeds data to database.</p>
+			<pre><code class="language-typescript">  <span class="hljs-keyword">this</span>.events.on(<span class="hljs-string">'db:getSeedsSubscriptions'</span>, <span class="hljs-function">(<span class="hljs-params">list: <span class="hljs-built_in">Array</span>&lt;Cli.CommandSubscriptionDefines&gt;</span>) =&gt;</span> {
+    list.push(<span class="hljs-keyword">async</span> (command: Vorpal.CommandInstance, args?: <span class="hljs-built_in">any</span>) =&gt; {});
+  });</code></pre>
+			<hr>
 			<h2 id="license">License</h2>
 			<p>The MIT License (MIT)</p>
 			<hr>
@@ -931,7 +942,6 @@ img { max-width: 100%; }
 						<h3>External modules</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-external-module"><a href="modules/_commands_seeds_.html" class="tsd-kind-icon">"<wbr>Commands/<wbr>Seeds"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_commands_index_.html" class="tsd-kind-icon">"<wbr>Commands/index"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_const_.html" class="tsd-kind-icon">"<wbr>Const"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_extension_.html" class="tsd-kind-icon">"<wbr>Extension"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_index_.html" class="tsd-kind-icon">"index"</a></li>
