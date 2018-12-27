@@ -38,7 +38,7 @@ class Seeds extends core_1.Cli.CommandDefines {
                             await task(this.cli.activeCommand, args);
                         }
                         catch (error) {
-                            this.cli.log(error);
+                            this.logger.error(error);
                         }
                     }
                     bar.tick();
