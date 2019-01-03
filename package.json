@@ -1,5 +1,5 @@
 {
-  "name": "@fastpanel/mongodb",
+  "name": "@fastpanel/mongo",
   "version": "0.0.1",
   "description": "Extension to work with \"MongoDB\" base.",
   "author": "Desionlab <fenixphp@gmail.com>",
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/desionlab/fastpanel-extension-mongodb.git"
+    "url": "git+https://github.com/fastpanel/mongo.git"
   },
   "bugs": {
-    "url": "https://github.com/desionlab/fastpanel-extension-mongodb/issues"
+    "url": "https://github.com/fastpanel/mongo/issues"
   },
-  "homepage": "https://github.com/desionlab/fastpanel-extension-mongodb#readme",
+  "homepage": "https://github.com/fastpanel/mongo#readme",
   "keywords": [
     "nodejs",
     "typescript",
@@ -32,16 +32,16 @@
   ],
   "dependencies": {
     "mongoose": "^5.4.1",
-    "mongoose-autopopulate": "^0.9.0",
+    "mongoose-autopopulate": "^0.9.1",
     "mongoose-bcrypt": "^1.6.0",
     "mongoose-hidden": "^1.6.0",
     "mongoose-mpath": "^2.0.1"
   },
   "devDependencies": {
-    "@fastpanel/core": "github:desionlab/fastpanel-core#develop",
+    "@fastpanel/core": "github:fastpanel/core#develop",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
-    "@types/mongoose": "^5.3.5",
+    "@types/mongoose": "^5.3.6",
     "@types/node": "^10.12.18",
     "@types/progress": "^2.0.3",
     "@types/vorpal": "^1.11.0",
