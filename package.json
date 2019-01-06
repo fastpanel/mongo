@@ -31,17 +31,17 @@
     "mongoose"
   ],
   "dependencies": {
-    "mongoose": "^5.4.1",
+    "mongoose": "^5.4.2",
     "mongoose-autopopulate": "^0.9.1",
     "mongoose-bcrypt": "^1.6.0",
     "mongoose-hidden": "^1.6.0",
-    "mongoose-mpath": "^2.0.1"
+    "mongoose-mpath": "^2.0.2"
   },
   "devDependencies": {
     "@fastpanel/core": "github:fastpanel/core#develop",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
-    "@types/mongoose": "^5.3.6",
+    "@types/mongoose": "^5.3.7",
     "@types/node": "^10.12.18",
     "@types/progress": "^2.0.3",
     "@types/vorpal": "^1.11.0",
