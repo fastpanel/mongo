@@ -29,19 +29,19 @@ class Extension extends core_1.Extensions.ExtensionDefines {
     async register() {
         /* Forming the connection address. */
         let url = "mongodb://"
-            + this.config.get('Extensions/MongoDB.host', Const_1.MONGODB_CONFIG.host)
-            + ":" + this.config.get('Extensions/MongoDB.port', Const_1.MONGODB_CONFIG.port);
+            + this.config.get('Ext/MongoDB.host', Const_1.MONGODB_CONFIG.host)
+            + ":" + this.config.get('Ext/MongoDB.port', Const_1.MONGODB_CONFIG.port);
         /* Connect to database. */
         await mongoose_1.default.connect(url, {
             /*  */
-            user: this.config.get('Extensions/MongoDB.user', Const_1.MONGODB_CONFIG.user),
-            pass: this.config.get('Extensions/MongoDB.pass', Const_1.MONGODB_CONFIG.pass),
-            dbName: this.config.get('Extensions/MongoDB.dbName', Const_1.MONGODB_CONFIG.dbName),
+            user: this.config.get('Ext/MongoDB.user', Const_1.MONGODB_CONFIG.user),
+            pass: this.config.get('Ext/MongoDB.pass', Const_1.MONGODB_CONFIG.pass),
+            dbName: this.config.get('Ext/MongoDB.dbName', Const_1.MONGODB_CONFIG.dbName),
             /*  */
-            autoReconnect: this.config.get('Extensions/MongoDB.autoReconnect', Const_1.MONGODB_CONFIG.autoReconnect),
-            reconnectTries: this.config.get('Extensions/MongoDB.reconnectTries', Const_1.MONGODB_CONFIG.reconnectTries),
-            reconnectInterval: this.config.get('Extensions/MongoDB.reconnectInterval', Const_1.MONGODB_CONFIG.reconnectInterval),
-            poolSize: this.config.get('Extensions/MongoDB.poolSize', Const_1.MONGODB_CONFIG.poolSize),
+            autoReconnect: this.config.get('Ext/MongoDB.autoReconnect', Const_1.MONGODB_CONFIG.autoReconnect),
+            reconnectTries: this.config.get('Ext/MongoDB.reconnectTries', Const_1.MONGODB_CONFIG.reconnectTries),
+            reconnectInterval: this.config.get('Ext/MongoDB.reconnectInterval', Const_1.MONGODB_CONFIG.reconnectInterval),
+            poolSize: this.config.get('Ext/MongoDB.poolSize', Const_1.MONGODB_CONFIG.poolSize),
             /*  */
             promiseLibrary: global.Promise,
             useCreateIndex: true,
@@ -61,9 +61,9 @@ class Extension extends core_1.Extensions.ExtensionDefines {
         this.events.on('app:getSetupSubscriptions', (list) => {
             list.push(async (command, args) => {
                 /* Check and create default config file. */
-                if (!this.config.get('Extensions/MongoDB', false)) {
-                    this.config.set('Extensions/MongoDB', Const_1.MONGODB_CONFIG);
-                    this.config.save('Extensions/MongoDB', true);
+                if (!this.config.get('Ext/MongoDB', false)) {
+                    this.config.set('Ext/MongoDB', Const_1.MONGODB_CONFIG);
+                    this.config.save('Ext/MongoDB', true);
                 }
             });
         });

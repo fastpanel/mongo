@@ -3,13 +3,21 @@ Extension to work with "MongoDB" base.
 
 ---
 
+## Env
+
+``` dotenv
+
+```
+
+---
+
 ## Events
 
 ### cli:getCommands
 
 The event is triggered when the application is ready to register mongoose models.
 
-```typescript
+``` typescript
   this.events.once('db:getModels', async (db: Mongoose.Connection) => {});
 ```
 
@@ -18,7 +26,7 @@ The event is triggered when the application is ready to register mongoose models
 The event allows you to register in the queue 
 for execution actions to seeds data to database.
 
-```typescript
+``` typescript
   this.events.on('db:getSeedsSubscriptions', (list: Array<Cli.CommandSubscriptionDefines>) => {
     list.push(async (command: Vorpal.CommandInstance, args?: any) => {});
   });
