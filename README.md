@@ -5,7 +5,7 @@ Extension to work with "MongoDB" base.
 
 ## Env
 
-``` dotenv
+```
 
 ```
 

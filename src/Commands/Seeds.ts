@@ -6,7 +6,7 @@
  * @license   MIT
  */
 
-import ProgressBar from "progress";
+import Winston from 'winston';
 import { Cli } from "@fastpanel/core";
 
 /**
@@ -19,32 +19,12 @@ export class Seeds extends Cli.CommandDefines {
    */
   public async initialize () : Promise<any> {
     this.cli
-    .command('db seeds', 'Seeding database data.')
-    .action((args: any) => {
+    .command('@fastpanel/mongo seeds', 'Seeding database data.')
+    .action((args: {[k: string]: any}, options: {[k: string]: any}, logger: Winston.Logger) => {
       return new Promise(async (resolve, reject) => {
-        let list: Array<Cli.CommandSubscriptionDefines> = [];
-
-        this.events.emit('db:getSeedsSubscriptions', list);
-        
-        let bar = new ProgressBar(' :bar :percent :etas ', {
-          complete: '\u25A0',
-          incomplete: ' ',
-          width: 60,
-          total: list.length
-        });
-
-        for (const task of list) {
-          if (typeof task === 'function') {
-            try {
-              await task(this.cli.activeCommand, args);
-            } catch (error) {
-              this.logger.error(error);
-            }
-          }
-
-          bar.tick();
-        }
-
+        logger.debug('@fastpanel/mongo seeds');
+        logger.debug(args);
+        logger.debug(options);
         resolve();
       });
     });

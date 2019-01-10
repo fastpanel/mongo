@@ -6,7 +6,7 @@
  * @license   MIT
  */
 
-import Vorpal from 'vorpal';
+import Caporal from 'caporal';
 import Mongoose from 'mongoose';
 import { MONGODB_CONFIG } from './Const';
 import { Cli, Di, Extensions } from '@fastpanel/core';
@@ -57,20 +57,12 @@ export class Extension extends Extensions.ExtensionDefines {
     /* --------------------------------------------------------------------- */
     
     /* Registered cli commands. */
-    this.events.once('cli:getCommands', async (cli: Vorpal) => {
+    this.events.once('cli:getCommands', async (cli: Caporal) => {
       const { Seeds } = require('./Commands/Seeds');
       await (new Seeds(this.di)).initialize();
-    });
 
-    /* Install and configure the basic components of the system. */
-    this.events.on('app:getSetupSubscriptions', (list: Array<Cli.CommandSubscriptionDefines>) => {
-      list.push(async (command: Vorpal.CommandInstance, args?: any) => {
-        /* Check and create default config file. */
-        if (!this.config.get('Ext/MongoDB', false)) {
-          this.config.set('Ext/MongoDB', MONGODB_CONFIG);
-          this.config.save('Ext/MongoDB', true);
-        }
-      });
+      const { Setup } = require('./Commands/Setup');
+      await (new Setup(this.di)).initialize();
     });
   }
   

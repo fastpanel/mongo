@@ -56,16 +56,8 @@ class Extension extends core_1.Extensions.ExtensionDefines {
         this.events.once('cli:getCommands', async (cli) => {
             const { Seeds } = require('./Commands/Seeds');
             await (new Seeds(this.di)).initialize();
-        });
-        /* Install and configure the basic components of the system. */
-        this.events.on('app:getSetupSubscriptions', (list) => {
-            list.push(async (command, args) => {
-                /* Check and create default config file. */
-                if (!this.config.get('Ext/MongoDB', false)) {
-                    this.config.set('Ext/MongoDB', Const_1.MONGODB_CONFIG);
-                    this.config.save('Ext/MongoDB', true);
-                }
-            });
+            const { Setup } = require('./Commands/Setup');
+            await (new Setup(this.di)).initialize();
         });
     }
     /**
