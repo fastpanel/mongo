@@ -15,12 +15,13 @@ class Seeds extends core_1.Cli.CommandDefines {
     /**
      * Initialize a commands provider.
      */
-    async initialize() {
+    initialize() {
         this.cli
-            .command('@fastpanel/mongo seeds', 'Seeding database data.')
+            .command('mongo seeds', 'Seeding database data.')
+            .option('-f, --fresh', 'Clear the base before filling.')
             .action((args, options, logger) => {
             return new Promise(async (resolve, reject) => {
-                logger.debug('@fastpanel/mongo seeds');
+                logger.debug('mongo seeds');
                 logger.debug(args);
                 logger.debug(options);
                 resolve();

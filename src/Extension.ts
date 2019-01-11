@@ -57,12 +57,12 @@ export class Extension extends Extensions.ExtensionDefines {
     /* --------------------------------------------------------------------- */
     
     /* Registered cli commands. */
-    this.events.once('cli:getCommands', async (cli: Caporal) => {
+    this.events.once('cli:getCommands', (cli: Caporal) => {
       const { Seeds } = require('./Commands/Seeds');
-      await (new Seeds(this.di)).initialize();
+      (new Seeds(this.di)).initialize();
 
       const { Setup } = require('./Commands/Setup');
-      await (new Setup(this.di)).initialize();
+      (new Setup(this.di)).initialize();
     });
   }
   

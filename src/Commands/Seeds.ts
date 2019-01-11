@@ -17,12 +17,13 @@ export class Seeds extends Cli.CommandDefines {
   /**
    * Initialize a commands provider.
    */
-  public async initialize () : Promise<any> {
+  public initialize () {
     this.cli
-    .command('@fastpanel/mongo seeds', 'Seeding database data.')
+    .command('mongo seeds', 'Seeding database data.')
+    .option('-f, --fresh', 'Clear the base before filling.')
     .action((args: {[k: string]: any}, options: {[k: string]: any}, logger: Winston.Logger) => {
       return new Promise(async (resolve, reject) => {
-        logger.debug('@fastpanel/mongo seeds');
+        logger.debug('mongo seeds');
         logger.debug(args);
         logger.debug(options);
         resolve();
