@@ -27,6 +27,27 @@ export class Extension extends Extensions.ExtensionDefines {
    * Registers a service provider.
    */
   async register () : Promise<any> {
+    /* Register connection object. */
+    this.di.set('db', (di: Di.Container) => {
+      return Mongoose.connection;
+    }, true);
+
+    /* --------------------------------------------------------------------- */
+    
+    /* Registered cli commands. */
+    this.events.once('cli:getCommands', (cli: Caporal) => {
+      const { Seeds } = require('./Commands/Seeds');
+      (new Seeds(this.di)).initialize();
+
+      const { Setup } = require('./Commands/Setup');
+      (new Setup(this.di)).initialize();
+    });
+  }
+  
+  /**
+   * Startup a service provider.
+   */
+  async startup () : Promise<any> {
     /* Forming the connection address. */
     let url = "mongodb://"
     + this.config.get('Ext/MongoDB.host', MONGODB_CONFIG.host)
@@ -49,27 +70,6 @@ export class Extension extends Extensions.ExtensionDefines {
       useNewUrlParser   : true
     });
 
-    /* Register connection object. */
-    this.di.set('db', (di: Di.Container) => {
-      return Mongoose.connection;
-    }, true);
-
-    /* --------------------------------------------------------------------- */
-    
-    /* Registered cli commands. */
-    this.events.once('cli:getCommands', (cli: Caporal) => {
-      const { Seeds } = require('./Commands/Seeds');
-      (new Seeds(this.di)).initialize();
-
-      const { Setup } = require('./Commands/Setup');
-      (new Setup(this.di)).initialize();
-    });
-  }
-  
-  /**
-   * Startup a service provider.
-   */
-  async startup () : Promise<any> {
     /* Fire event. */
     this.events.emit('db:getModels', this.db);
     this.events.emit('db:startup', this.db);

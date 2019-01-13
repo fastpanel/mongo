@@ -27,6 +27,23 @@ class Extension extends core_1.Extensions.ExtensionDefines {
      * Registers a service provider.
      */
     async register() {
+        /* Register connection object. */
+        this.di.set('db', (di) => {
+            return mongoose_1.default.connection;
+        }, true);
+        /* --------------------------------------------------------------------- */
+        /* Registered cli commands. */
+        this.events.once('cli:getCommands', (cli) => {
+            const { Seeds } = require('./Commands/Seeds');
+            (new Seeds(this.di)).initialize();
+            const { Setup } = require('./Commands/Setup');
+            (new Setup(this.di)).initialize();
+        });
+    }
+    /**
+     * Startup a service provider.
+     */
+    async startup() {
         /* Forming the connection address. */
         let url = "mongodb://"
             + this.config.get('Ext/MongoDB.host', Const_1.MONGODB_CONFIG.host)
@@ -47,23 +64,6 @@ class Extension extends core_1.Extensions.ExtensionDefines {
             useCreateIndex: true,
             useNewUrlParser: true
         });
-        /* Register connection object. */
-        this.di.set('db', (di) => {
-            return mongoose_1.default.connection;
-        }, true);
-        /* --------------------------------------------------------------------- */
-        /* Registered cli commands. */
-        this.events.once('cli:getCommands', (cli) => {
-            const { Seeds } = require('./Commands/Seeds');
-            (new Seeds(this.di)).initialize();
-            const { Setup } = require('./Commands/Setup');
-            (new Setup(this.di)).initialize();
-        });
-    }
-    /**
-     * Startup a service provider.
-     */
-    async startup() {
         /* Fire event. */
         this.events.emit('db:getModels', this.db);
         this.events.emit('db:startup', this.db);
