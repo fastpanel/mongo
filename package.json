@@ -1,6 +1,6 @@
 {
   "name": "@fastpanel/mongo",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.1",
   "description": "Extension to work with \"MongoDB\" base.",
   "author": "Desionlab <fenixphp@gmail.com>",
   "main": "build/index.js",
@@ -32,14 +32,14 @@
     "mongoose"
   ],
   "dependencies": {
-    "mongoose": "^5.4.3",
+    "mongoose": "^5.4.4",
     "mongoose-autopopulate": "^0.9.1",
     "mongoose-bcrypt": "^1.6.0",
     "mongoose-hidden": "^1.6.0",
     "mongoose-mpath": "^2.0.3"
   },
   "devDependencies": {
-    "@fastpanel/core": "github:fastpanel/core#develop",
+    "@fastpanel/core": "^0.1.0-alpha.1",
     "@types/chai": "^4.1.7",
     "@types/inquirer": "0.0.43",
     "@types/mocha": "^5.2.5",
