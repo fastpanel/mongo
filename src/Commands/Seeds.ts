@@ -8,8 +8,9 @@
 
 import ora from 'ora';
 import Winston from 'winston';
+import { EOL } from 'os';
 import { Cli } from "@fastpanel/core";
-import { concat, trim, toLower, merge } from 'lodash';
+import { concat, trim, toLower } from 'lodash';
 
 /**
  * 
@@ -23,6 +24,7 @@ export class Seeds extends Cli.CommandDefines {
     this.cli
     .command('mongo seeds', 'Seeding database data.')
     .option('-f, --fresh', 'Clear the base before filling.')
+    .option('-d, --demo', 'Fill demo data.')
     .action((args: {[k: string]: any}, options: {[k: string]: any}, logger: Winston.Logger) => {
       return new Promise(async (resolve, reject) => {
         /* Get ext list. */
