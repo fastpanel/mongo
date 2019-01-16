@@ -45,6 +45,7 @@
     "@types/mocha": "^5.2.5",
     "@types/mongoose": "^5.3.7",
     "@types/node": "^10.12.18",
+    "@types/ora": "^3.0.0",
     "@types/progress": "^2.0.3",
     "@types/vorpal": "^1.11.0",
     "chai": "^4.2.0",

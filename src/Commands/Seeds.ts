@@ -6,6 +6,7 @@
  * @license   MIT
  */
 
+import ora from 'ora';
 import Winston from 'winston';
 import { Cli } from "@fastpanel/core";
 import { concat, trim, toLower, merge } from 'lodash';
@@ -27,6 +28,9 @@ export class Seeds extends Cli.CommandDefines {
         /* Get ext list. */
         let list = concat(['@fastpanel/core'], this.extensions.list);
 
+        /* Info message. */
+        let spinner = ora('Seeding database data...').start();
+
         /* Find and run commands. */
         for (const name of list) {
           /* Clear ext name. */
@@ -45,13 +49,22 @@ export class Seeds extends Cli.CommandDefines {
                 [commandName],
                 options
               );
+
+              /* Info message. */
+              spinner.text = `Seeding data for: ${commandName}`;
             } catch (error) {
+              /* Info message. */
+              spinner.fail('Seeding error.');
+
               /* Stop command by error. */
               reject(error);
             }
           }
         }
         
+        /* Info message. */
+        spinner.succeed('Seeding complete.');
+
         /* Command complete. */
         resolve();
       });
