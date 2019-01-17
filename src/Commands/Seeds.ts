@@ -46,14 +46,14 @@ export class Seeds extends Cli.CommandDefines {
             )[0]
           ) {
             try {
+              /* Info message. */
+              spinner.text = `Seeding data for: ${commandName}`;
+
               /* Run command. */
               await this.cli.exec(
                 [commandName],
                 options
               );
-
-              /* Info message. */
-              spinner.text = `Seeding data for: ${commandName}`;
             } catch (error) {
               /* Info message. */
               spinner.fail('Seeding error.');
