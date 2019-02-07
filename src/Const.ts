@@ -10,11 +10,11 @@
  * Default mongodb config.
  */
 export const MONGODB_CONFIG = {
-  host              : "localhost",
+  host              : 'localhost',
   port              : 27017,
-  user              : "",
-  pass              : "",
-  dbName            : "fastPanel",
+  user              : '',
+  pass              : '',
+  dbName            : 'fastPanel',
   autoReconnect     : true,
   reconnectTries    : 9999,
   reconnectInterval : 500,

@@ -918,17 +918,22 @@ img { max-width: 100%; }
 			<p>Extension to work with &quot;MongoDB&quot; base.</p>
 			<hr>
 			<h2 id="env">Env</h2>
-			<pre><code></code></pre><hr>
+			<pre><code><span class="hljs-comment"># Defines the MongoDB environment.</span>
+<span class="hljs-attr">MONGODB_HOST</span>=<span class="hljs-string">'localhost'</span>
+<span class="hljs-attr">MONGODB_PORT</span>=<span class="hljs-number">27017</span>
+<span class="hljs-attr">MONGODB_USER</span>=<span class="hljs-string">''</span>
+<span class="hljs-attr">MONGODB_PASS</span>=<span class="hljs-string">''</span>
+<span class="hljs-attr">MONGODB_DBNAME</span>=<span class="hljs-string">'fastPanel'</span>
+
+<span class="hljs-comment"># Connection options.</span>
+<span class="hljs-attr">MONGODB_AUTO_RECONNECT</span>=<span class="hljs-literal">true</span>
+<span class="hljs-attr">MONGODB_RECONNECT_TRIES</span>=<span class="hljs-number">9999</span>
+<span class="hljs-attr">MONGODB_RECONNECT_INTERVAL</span>=<span class="hljs-number">500</span>
+<span class="hljs-attr">MONGODB_POOL_SIZE</span>=<span class="hljs-number">10</span></code></pre><hr>
 			<h2 id="events">Events</h2>
 			<h3 id="cli-getcommands">cli:getCommands</h3>
 			<p>The event is triggered when the application is ready to register mongoose models.</p>
 			<pre><code class="language-typescript">  <span class="hljs-keyword">this</span>.events.once(<span class="hljs-string">'db:getModels'</span>, <span class="hljs-keyword">async</span> (db: Mongoose.Connection) =&gt; {});</code></pre>
-			<h3 id="db-getseedssubscriptions">db:getSeedsSubscriptions</h3>
-			<p>The event allows you to register in the queue
-			for execution actions to seeds data to database.</p>
-			<pre><code class="language-typescript">  <span class="hljs-keyword">this</span>.events.on(<span class="hljs-string">'db:getSeedsSubscriptions'</span>, <span class="hljs-function">(<span class="hljs-params">list: <span class="hljs-built_in">Array</span>&lt;Cli.CommandSubscriptionDefines&gt;</span>) =&gt;</span> {
-    list.push(<span class="hljs-keyword">async</span> (command: Vorpal.CommandInstance, args?: <span class="hljs-built_in">any</span>) =&gt; {});
-  });</code></pre>
 			<hr>
 			<h2 id="license">License</h2>
 			<p>The MIT License (MIT)</p>

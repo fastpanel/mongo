@@ -39,10 +39,10 @@ class Seeds extends core_1.Cli.CommandDefines {
                     /* Find command by name. */
                     if (this.cli.getCommands().filter((c) => (c.name() === commandName || c.getAlias() === commandName))[0]) {
                         try {
-                            /* Run command. */
-                            await this.cli.exec([commandName], options);
                             /* Info message. */
                             spinner.text = `Seeding data for: ${commandName}`;
+                            /* Run command. */
+                            await this.cli.exec([commandName], options);
                         }
                         catch (error) {
                             /* Info message. */

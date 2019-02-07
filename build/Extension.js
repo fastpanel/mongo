@@ -46,19 +46,42 @@ class Extension extends core_1.Extensions.ExtensionDefines {
     async startup() {
         /* Forming the connection address. */
         let url = "mongodb://"
-            + this.config.get('Ext/MongoDB.host', Const_1.MONGODB_CONFIG.host)
-            + ":" + this.config.get('Ext/MongoDB.port', Const_1.MONGODB_CONFIG.port);
+            + (process.env.MONGODB_HOST)
+            ? process.env.MONGODB_HOST
+            : this.config.get('Ext/MongoDB.host', Const_1.MONGODB_CONFIG.host)
+                + ":" + (process.env.MONGODB_PORT)
+                ? process.env.MONGODB_PORT
+                : this.config.get('Ext/MongoDB.port', Const_1.MONGODB_CONFIG.port);
         /* Connect to database. */
         await mongoose_1.default.connect(url, {
             /*  */
-            user: this.config.get('Ext/MongoDB.user', Const_1.MONGODB_CONFIG.user),
-            pass: this.config.get('Ext/MongoDB.pass', Const_1.MONGODB_CONFIG.pass),
-            dbName: this.config.get('Ext/MongoDB.dbName', Const_1.MONGODB_CONFIG.dbName),
+            user: (process.env.MONGODB_USER)
+                ? process.env.MONGODB_USER
+                : this.config.get('Ext/MongoDB.user', Const_1.MONGODB_CONFIG.user),
             /*  */
-            autoReconnect: this.config.get('Ext/MongoDB.autoReconnect', Const_1.MONGODB_CONFIG.autoReconnect),
-            reconnectTries: this.config.get('Ext/MongoDB.reconnectTries', Const_1.MONGODB_CONFIG.reconnectTries),
-            reconnectInterval: this.config.get('Ext/MongoDB.reconnectInterval', Const_1.MONGODB_CONFIG.reconnectInterval),
-            poolSize: this.config.get('Ext/MongoDB.poolSize', Const_1.MONGODB_CONFIG.poolSize),
+            pass: (process.env.MONGODB_PASS)
+                ? process.env.MONGODB_PASS
+                : this.config.get('Ext/MongoDB.pass', Const_1.MONGODB_CONFIG.pass),
+            /*  */
+            dbName: (process.env.MONGODB_DBNAME)
+                ? process.env.MONGODB_DBNAME
+                : this.config.get('Ext/MongoDB.dbName', Const_1.MONGODB_CONFIG.dbName),
+            /*  */
+            autoReconnect: (process.env.MONGODB_AUTO_RECONNECT)
+                ? process.env.MONGODB_AUTO_RECONNECT
+                : this.config.get('Ext/MongoDB.autoReconnect', Const_1.MONGODB_CONFIG.autoReconnect),
+            /*  */
+            reconnectTries: (process.env.MONGODB_RECONNECT_TRIES)
+                ? process.env.MONGODB_RECONNECT_TRIES
+                : this.config.get('Ext/MongoDB.reconnectTries', Const_1.MONGODB_CONFIG.reconnectTries),
+            /*  */
+            reconnectInterval: (process.env.MONGODB_RECONNECT_INTERVAL)
+                ? process.env.MONGODB_RECONNECT_INTERVAL
+                : this.config.get('Ext/MongoDB.reconnectInterval', Const_1.MONGODB_CONFIG.reconnectInterval),
+            /*  */
+            poolSize: (process.env.MONGODB_POOL_SIZE)
+                ? process.env.MONGODB_POOL_SIZE
+                : this.config.get('Ext/MongoDB.poolSize', Const_1.MONGODB_CONFIG.poolSize),
             /*  */
             promiseLibrary: global.Promise,
             useCreateIndex: true,
