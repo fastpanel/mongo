@@ -27,20 +27,30 @@ export class Extension extends Extensions.ExtensionDefines {
    * Registers a service provider.
    */
   async register () : Promise<any> {
-    /* Register connection object. */
-    this.di.set('db', (di: Di.Container) => {
-      return Mongoose.connection;
-    }, true);
+    /* Check mongo config. */
+    if (this.config.get('Ext/MongoDB', false) ||
+      this.config.get('Env.MONGODB_HOST', false)) {
+      /* Register connection object. */
+      this.di.set('db', (di: Di.Container) => {
+        return Mongoose.connection;
+      }, true);
+    }
 
     /* --------------------------------------------------------------------- */
     
     /* Registered cli commands. */
     this.events.once('cli:getCommands', (cli: Caporal) => {
-      const { Seeds } = require('./Commands/Seeds');
-      (new Seeds(this.di)).initialize();
-
+      /* Add setup command. */
       const { Setup } = require('./Commands/Setup');
       (new Setup(this.di)).initialize();
+
+      /* Check mongo config. */
+      if (this.config.get('Ext/MongoDB', false) ||
+        this.config.get('Env.MONGODB_HOST', false)) {
+        /* Add seeds command. */
+        const { Seeds } = require('./Commands/Seeds');
+        (new Seeds(this.di)).initialize();
+      }
     });
   }
   
@@ -48,54 +58,32 @@ export class Extension extends Extensions.ExtensionDefines {
    * Startup a service provider.
    */
   async startup () : Promise<any> {
-    /* Forming the connection address. */
-    let url = "mongodb://"
-    + (process.env.MONGODB_HOST)
-    ? process.env.MONGODB_HOST
-    : this.config.get('Ext/MongoDB.host', MONGODB_CONFIG.host)
-    + ":" + (process.env.MONGODB_PORT)
-    ? process.env.MONGODB_PORT
-    : this.config.get('Ext/MongoDB.port', MONGODB_CONFIG.port);
+    /* Check mongo config. */
+    if (this.config.get('Ext/MongoDB', false) ||
+      this.config.get('Env.MONGODB_HOST', false)) {
+      /* Forming the connection address. */
+      let url = "mongodb://"
+      + this.config.get('Env.MONGODB_HOST', this.config.get('Ext/MongoDB.host', MONGODB_CONFIG.host))
+      + ":" + this.config.get('Env.MONGODB_PORT', this.config.get('Ext/MongoDB.port', MONGODB_CONFIG.port));
 
-    /* Connect to database. */
-    await Mongoose.connect(url, {
-      /*  */
-      user: (process.env.MONGODB_USER)
-      ? process.env.MONGODB_USER
-      : this.config.get('Ext/MongoDB.user', MONGODB_CONFIG.user),
-      /*  */
-      pass: (process.env.MONGODB_PASS)
-      ? process.env.MONGODB_PASS
-      : this.config.get('Ext/MongoDB.pass', MONGODB_CONFIG.pass),
-      /*  */
-      dbName: (process.env.MONGODB_DBNAME)
-      ? process.env.MONGODB_DBNAME
-      : this.config.get('Ext/MongoDB.dbName', MONGODB_CONFIG.dbName),
-      /*  */
-      autoReconnect: (process.env.MONGODB_AUTO_RECONNECT)
-      ? process.env.MONGODB_AUTO_RECONNECT
-      : this.config.get('Ext/MongoDB.autoReconnect', MONGODB_CONFIG.autoReconnect),
-      /*  */
-      reconnectTries: (process.env.MONGODB_RECONNECT_TRIES)
-      ? process.env.MONGODB_RECONNECT_TRIES
-      : this.config.get('Ext/MongoDB.reconnectTries', MONGODB_CONFIG.reconnectTries),
-      /*  */
-      reconnectInterval: (process.env.MONGODB_RECONNECT_INTERVAL)
-      ? process.env.MONGODB_RECONNECT_INTERVAL
-      : this.config.get('Ext/MongoDB.reconnectInterval', MONGODB_CONFIG.reconnectInterval),
-      /*  */
-      poolSize: (process.env.MONGODB_POOL_SIZE)
-      ? process.env.MONGODB_POOL_SIZE
-      : this.config.get('Ext/MongoDB.poolSize', MONGODB_CONFIG.poolSize),
-      /*  */
-      promiseLibrary: global.Promise,
-      useCreateIndex: true,
-      useNewUrlParser: true
-    });
+      /* Connect to database. */
+      await Mongoose.connect(url, {
+        user: this.config.get('Env.MONGODB_USER', this.config.get('Ext/MongoDB.user', MONGODB_CONFIG.user)),
+        pass: this.config.get('Env.MONGODB_PASS', this.config.get('Ext/MongoDB.pass', MONGODB_CONFIG.pass)),
+        dbName: this.config.get('Env.MONGODB_DBNAME', this.config.get('Ext/MongoDB.dbName', MONGODB_CONFIG.dbName)),
+        autoReconnect: this.config.get('Env.MONGODB_AUTO_RECONNECT', this.config.get('Ext/MongoDB.autoReconnect', MONGODB_CONFIG.autoReconnect)),
+        reconnectTries: this.config.get('Env.MONGODB_RECONNECT_TRIES', this.config.get('Ext/MongoDB.reconnectTries', MONGODB_CONFIG.reconnectTries)),
+        reconnectInterval: this.config.get('Env.MONGODB_RECONNECT_INTERVAL', this.config.get('Ext/MongoDB.reconnectInterval', MONGODB_CONFIG.reconnectInterval)),
+        poolSize: this.config.get('Env.MONGODB_POOL_SIZE', this.config.get('Ext/MongoDB.poolSize', MONGODB_CONFIG.poolSize)),
+        promiseLibrary: global.Promise,
+        useCreateIndex: true,
+        useNewUrlParser: true
+      });
 
-    /* Fire event. */
-    this.events.emit('db:getModels', this.db);
-    this.events.emit('db:startup', this.db);
+      /* Fire event. */
+      this.events.emit('db:getModels', this.db);
+      this.events.emit('db:startup', this.db);
+    }
   }
 
 }
