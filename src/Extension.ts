@@ -27,13 +27,15 @@ export class Extension extends Extensions.ExtensionDefines {
    * Registers a service provider.
    */
   async register () : Promise<any> {
-    /* Check mongo config. */
+    /* Check config. */
     if (this.config.get('Ext/MongoDB', false) ||
       this.config.get('Env.MONGODB_HOST', false)) {
       /* Register connection object. */
       this.di.set('db', (di: Di.Container) => {
         return Mongoose.connection;
       }, true);
+    } else {
+      this.logger.warn('Component "MongoDB" is not configured correctly!');
     }
 
     /* --------------------------------------------------------------------- */
@@ -44,7 +46,7 @@ export class Extension extends Extensions.ExtensionDefines {
       const { Setup } = require('./Commands/Setup');
       (new Setup(this.di)).initialize();
 
-      /* Check mongo config. */
+      /* Check config. */
       if (this.config.get('Ext/MongoDB', false) ||
         this.config.get('Env.MONGODB_HOST', false)) {
         /* Add seeds command. */
@@ -58,7 +60,7 @@ export class Extension extends Extensions.ExtensionDefines {
    * Startup a service provider.
    */
   async startup () : Promise<any> {
-    /* Check mongo config. */
+    /* Check config. */
     if (this.config.get('Ext/MongoDB', false) ||
       this.config.get('Env.MONGODB_HOST', false)) {
       /* Forming the connection address. */
