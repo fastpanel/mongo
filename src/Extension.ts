@@ -77,7 +77,6 @@ export class Extension extends Extensions.ExtensionDefines {
         reconnectTries: this.config.get('Env.MONGODB_RECONNECT_TRIES', this.config.get('Ext/MongoDB.reconnectTries', MONGODB_CONFIG.reconnectTries)),
         reconnectInterval: this.config.get('Env.MONGODB_RECONNECT_INTERVAL', this.config.get('Ext/MongoDB.reconnectInterval', MONGODB_CONFIG.reconnectInterval)),
         poolSize: this.config.get('Env.MONGODB_POOL_SIZE', this.config.get('Ext/MongoDB.poolSize', MONGODB_CONFIG.poolSize)),
-        promiseLibrary: global.Promise,
         useCreateIndex: true,
         useNewUrlParser: true
       });
