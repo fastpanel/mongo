@@ -1,6 +1,6 @@
 {
   "name": "@fastpanel/mongo",
-  "version": "0.1.0-alpha.1",
+  "version": "0.2.1-alpha.1",
   "description": "Extension to work with \"MongoDB\" base.",
   "author": "Desionlab <fenixphp@gmail.com>",
   "main": "build/index.js",
@@ -32,27 +32,28 @@
     "mongoose"
   ],
   "dependencies": {
-    "mongoose": "^5.4.4",
+    "mongoose": "^5.6.7",
     "mongoose-autopopulate": "^0.9.1",
     "mongoose-bcrypt": "^1.6.0",
-    "mongoose-hidden": "^1.6.0",
-    "mongoose-mpath": "^2.0.3"
+    "mongoose-hidden": "^1.6.2",
+    "mongoose-mpath": "^2.0.11"
   },
   "devDependencies": {
-    "@fastpanel/core": "^0.1.0-alpha.1",
+    "@fastpanel/core": "^0.2.1-alpha.1",
     "@types/chai": "^4.1.7",
-    "@types/inquirer": "0.0.43",
-    "@types/mocha": "^5.2.5",
-    "@types/mongoose": "^5.3.7",
-    "@types/node": "^10.12.18",
-    "@types/ora": "^3.0.0",
+    "@types/inquirer": "^6.5.0",
+    "@types/lodash": "^4.14.136",
+    "@types/mocha": "^5.2.7",
+    "@types/mongoose": "^5.5.11",
+    "@types/node": "^12.6.8",
+    "@types/ora": "^3.2.0",
     "@types/progress": "^2.0.3",
     "@types/vorpal": "^1.11.0",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "ts-node": "^7.0.1",
-    "typedoc": "^0.14.1",
-    "typescript": "^3.2.2"
+    "mocha": "^6.2.0",
+    "ts-node": "^8.3.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.5.3"
   },
   "license": "MIT"
 }
